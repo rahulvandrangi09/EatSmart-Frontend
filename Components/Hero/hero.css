@@ -1,0 +1,57 @@
+.heromain {
+  height: 90vh;
+  width: 100%;
+  background-image: url("../Assests/OrderNow.png");
+  background-size: cover;
+  background-position: center;
+  display: flex;
+}
+
+.hero-left {
+  width: 50%;
+  flex: 1;
+}
+
+.hero-right {
+  width: 50%;
+  flex: 1;
+  display: flex;
+  align-items: center;     
+  justify-content: flex-start;
+  padding-left: 150px;    
+}
+
+.hero-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.hero-heading {
+  font-size: 40px;
+  color: #222;
+  font-weight: 700;
+}
+
+.hero-text {
+  font-size: 1.5rem;
+  color: #2e2e2e;
+  font-weight: 600;
+}
+
+.hero-btn {
+  background: #28a745;
+  color: #fff;
+  padding: 14px 32px;
+  width: 160px;
+  border-radius: 20px;
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.hero-btn:hover {
+  background: #218838;
+}

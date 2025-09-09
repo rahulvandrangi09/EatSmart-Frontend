@@ -1,0 +1,85 @@
+.cartitems{
+    margin: 100px 170px;
+}
+
+.cartitems hr{
+    height: 3px;
+    border: 0px;
+    background: grey;
+}
+
+.cartitemformatmain{
+    display: grid;
+    grid-template-columns: 0.5fr 2fr 1fr 1fr 1fr 1fr;
+    align-items: center;
+    gap: 40px;
+    padding: 20px;
+    font-weight: 600;
+}
+
+.cartitemsformat{
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.carticon{
+    height: 60px;
+}
+.carticonremove{
+    width: 15px;
+    margin: 0px 40px;
+    cursor: pointer;
+}
+
+.cartitemsquantity{
+    width: 64px;
+    height: 50px;
+    border: 2px solid black;
+    background-color: white;
+}
+
+.classitemsdown {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 50px;
+  margin-right: 50px;
+}
+
+.cartitemstotals {
+  width: 350px;
+  padding: 20px;
+  border: 2px solid #000;
+  border-radius: 10px;
+  background: #f9f9f9;
+  font-weight: 500;
+}
+
+.cartitemstotals h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.cartitemstotalitem {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0;
+}
+
+.cartitemstotals button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 20px;
+  background: #ff6f00;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.cartitemstotals button:hover {
+  background: #e65c00;
+}

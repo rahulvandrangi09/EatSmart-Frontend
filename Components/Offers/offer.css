@@ -1,0 +1,47 @@
+.offers{
+    width: 80%;
+    height: 65vh;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    margin-bottom: 150px;
+    text-align: center;
+}
+
+.offer-down img{
+    width: 100%;
+    margin-top: -40px;
+    border-radius: 15px;
+}
+
+.offer-up{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: -150px;
+    z-index: 1000;
+    padding-top: 40px;
+}
+
+.offer-up button{
+    background: #25009f8f;
+  color: #fff;
+  padding: 14px 32px;
+  width: 160px;
+  border-radius: 20px;
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.offer-up button:hover{
+      background: #05008f;
+
+}
+
+.offer-up h3{
+   font-weight: 500;
+}

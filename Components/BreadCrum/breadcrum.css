@@ -1,0 +1,10 @@
+.breadcrum{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: grey;
+    font-size: 14px;
+    font-weight: 600;
+    margin: 30px 170px;
+    text-transform: capitalize;
+}
