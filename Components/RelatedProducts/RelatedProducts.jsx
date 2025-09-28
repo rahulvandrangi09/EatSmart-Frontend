@@ -1,16 +1,21 @@
-import React from "react";
-import data from "../Assests/data";
+import React, { useContext } from "react";
 import "./relatedproducts.css";
 import Item from "../Item/Item";
+import { Dailycontext } from "../../Context/Dailycontext";
+
 const RelatedProducts = () => {
+  const { all_products, loading } = useContext(Dailycontext);
+
+  if (loading) return <div className="not-found">⏳ Loading...</div>;
+
   return (
     <div className="relatedproducts">
       <h1>Also Check Out</h1>
       <hr />
       <div className="relateditems">
-        {data.map((product, i) => (
+        {all_products.slice(0, 8).map((product) => (
           <Item
-            key={i}
+            key={product.id}
             id={product.id}
             img={product.image}
             name={product.name}

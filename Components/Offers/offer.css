@@ -1,47 +1,101 @@
-.offers{
-    width: 80%;
-    height: 65vh;
+.offers {
+    width: 90%; /* Use a smaller percentage for better padding on mobile */
+    min-height: 65vh; /* Use min-height to ensure content fits */
     display: flex;
     flex-direction: column;
-    margin: auto;
-    margin-bottom: 150px;
+    margin: 50px auto; /* Adjust margin for consistent spacing */
     text-align: center;
 }
 
-.offer-down img{
+.offer-down img {
     width: 100%;
-    margin-top: -40px;
+    margin-top: -80px; /* Use a larger negative margin for a better visual overlap */
     border-radius: 15px;
+    object-fit: cover;
+    height: auto;
 }
 
-.offer-up{
+.offer-up {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 10px;
+    gap: 15px; /* Increase gap for better spacing */
     margin-bottom: -150px;
     z-index: 1000;
     padding-top: 40px;
 }
 
-.offer-up button{
+.offer-up button {
     background: #25009f8f;
-  color: #fff;
-  padding: 14px 32px;
-  width: 160px;
-  border-radius: 20px;
-  font-size: 1rem;
-  border: none;
-  cursor: pointer;
-  transition: 0.3s ease;
+    color: #fff;
+    padding: 14px 32px;
+    width: 160px;
+    border-radius: 20px;
+    font-size: 1rem;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s ease;
 }
 
-.offer-up button:hover{
-      background: #05008f;
-
+.offer-up button:hover {
+    background: #05008f;
 }
 
-.offer-up h3{
-   font-weight: 500;
+.offer-up h3 {
+    font-weight: 500;
+}
+
+/* -------------------- Media Queries -------------------- */
+
+@media (max-width: 768px) {
+    .offers {
+        width: 95%; /* Make container wider on tablets */
+        margin: 30px auto;
+    }
+    
+    .offer-up {
+        margin-bottom: -100px; /* Adjust negative margin for tablets */
+        padding-top: 20px;
+        gap: 10px;
+    }
+    
+    .offer-up h3 {
+        font-size: 1rem; /* Reduce font size on smaller screens */
+    }
+    
+    .offer-up button {
+        width: 140px;
+        font-size: 0.9rem;
+        padding: 12px 25px;
+    }
+    
+    .offer-down img {
+        margin-top: -60px; /* Adjust negative margin */
+    }
+}
+
+@media (max-width: 480px) {
+    .offers {
+        margin: 20px auto;
+    }
+    
+    .offer-up {
+        margin-bottom: -60px; /* Final negative margin for a good mobile overlap */
+        padding-top: 10px;
+    }
+    
+    .offer-up h3 {
+        font-size: 0.9rem;
+    }
+    
+    .offer-up button {
+        width: 120px;
+        font-size: 0.8rem;
+        padding: 10px 20px;
+    }
+    
+    .offer-down img {
+        margin-top: -40px;
+    }
 }

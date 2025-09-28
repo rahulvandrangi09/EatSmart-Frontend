@@ -4,6 +4,7 @@
     justify-content: center;
     align-items: center;
     gap: 20px;
+    padding: 20px; /* Add padding for mobile view */
 }
 
 .footerlogo{
@@ -16,6 +17,10 @@
     color: grey;
     font-size: 40px;
     font-weight: 700;
+    /* Reduce font size on smaller screens */
+    @media (max-width: 600px) {
+        font-size: 30px;
+    }
 }
 
 .footer-links{
@@ -24,6 +29,9 @@
     gap: 30px;
     color: black;
     font-size: 20px;
+    flex-wrap: wrap; /* Allows links to wrap to the next line */
+    justify-content: center; /* Center the links when they wrap */
+    padding: 0 10px; /* Add padding to prevent links from touching screen edges */
 }
 
 .footer-links li{
@@ -33,6 +41,8 @@
 .footer-social-icons{
     display: flex;
     gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .footer-icons-container{
@@ -40,6 +50,10 @@
     padding-bottom: 6px;
     background-color: whitesmoke;
     border: 1px solid wheat;
+    /* Adjust padding for a cleaner look on mobile */
+    @media (max-width: 600px) {
+        padding: 8px;
+    }
 }
 
 .footer-copyright{
@@ -51,6 +65,7 @@
     margin-bottom: 30px;
     color: black;
     font-size: 15px;
+    text-align: center; /* Center text on mobile */
 }
 
 .footer-copyright hr{
@@ -63,4 +78,8 @@
 
 .footerlogo img{
     width: 50px;
+    /* Reduce image size on smaller screens */
+    @media (max-width: 600px) {
+        width: 40px;
+    }
 }

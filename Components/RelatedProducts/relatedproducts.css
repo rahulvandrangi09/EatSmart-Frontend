@@ -1,26 +1,37 @@
-.relatedproducts{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    height: 90vh;
+.relatedproducts {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  /* height: 90vh; */ /* ❌ REMOVE THIS LINE to prevent overflow */
 }
 
-.relatedproducts h1{
-    color: black;
-    font-size: 40px;
-    font-weight: 600;
+.relatedproducts h1 {
+  color: black;
+  font-size: 40px;
+  font-weight: 600;
 }
-.relatedproducts hr{
-    width: 200px;
-    height: 6px;
-    border-radius: 10px;
-    background-color: grey;
+.relatedproducts hr {
+  width: 200px;
+  height: 6px;
+  border-radius: 10px;
+  background-color: grey;
 }
 
-.relateditems{
-    margin-top: 50px;
-    display: flex;
-    gap: 30px;
-    
+.relateditems {
+  margin-top: 50px;
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap; /* ✅ FIX: This allows items to wrap to a new line */
+  justify-content: center; /* ✅ FIX: This centers the items when they wrap */
+  max-width: 1200px; /* ✅ ADD: Constrains the width on large screens */
+  margin: 50px auto; /* ✅ ADD: Centers the container */
+}
+
+/* Optional: Add a media query for even better responsiveness on mobile */
+@media (max-width: 800px) {
+  .relateditems {
+    gap: 15px; /* Reduce gap on smaller screens */
+    margin: 20px 10px; /* Add horizontal margin to prevent touching the edges */
+  }
 }

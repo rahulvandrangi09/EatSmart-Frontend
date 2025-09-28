@@ -16,9 +16,8 @@ const QuickDiscounts = () => {
         const data = await res.json();
         setDiscountProducts(data);
 
-        // Merge discounted products into global dataset
+        
         setAllProducts((prev) => {
-          // Avoid duplicate ids
           const existingIds = new Set(prev.map((p) => p.id));
           const newOnes = data.filter((p) => !existingIds.has(p.id));
           return [...prev, ...newOnes];

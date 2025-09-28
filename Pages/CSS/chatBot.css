@@ -1,4 +1,5 @@
 .chatbot {
+  /* Use a percentage for margin to ensure it adapts to different screen sizes */
   max-width: 700px;
   margin: 40px auto;
   padding: 25px;
@@ -16,6 +17,7 @@
 }
 
 .chatbot input {
+  /* Use percentage for width to allow fluid sizing on smaller screens */
   width: 70%;
   padding: 12px 15px;
   border: 2px solid #ddd;
@@ -63,8 +65,8 @@
   list-style: none;
   padding: 0;
   margin: 0 auto 20px;
-  display: inline-block; /* Center align list */
-  text-align: left; /* Align text inside the box */
+  display: inline-block;
+  text-align: left;
 }
 
 .chatbot ul li {
@@ -88,4 +90,68 @@
   color: #555;
   font-size: 16px;
   margin-top: 15px;
+}
+
+.loading-spinner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px 0;
+}
+
+.spinner {
+  border: 5px solid #f3f3f3;
+  border-top: 5px solid #ff7043;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+  margin-bottom: 10px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* -------------------- Media Queries for Responsiveness -------------------- */
+@media (max-width: 768px) {
+  .chatbot {
+    /* Use a percentage for margin to prevent sticking to the edges */
+    margin: 20px 5%;
+  }
+
+  .chatbot h2 {
+    font-size: 24px;
+  }
+
+  .chatbot h3 {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 500px) {
+  .chatbot {
+    padding: 20px 15px;
+  }
+
+  /* Make the input and button full-width on mobile to improve usability */
+  .chatbot input {
+    width: 90%;
+    margin-bottom: 15px;
+  }
+  
+  .chatbot button {
+    width: 90%;
+    margin-left: 0; /* Remove left margin to center */
+  }
+
+  .chatbot h4 {
+    font-size: 18px;
+  }
+
+  .chatbot ul li,
+  .chatbot p {
+    font-size: 14px;
+  }
 }

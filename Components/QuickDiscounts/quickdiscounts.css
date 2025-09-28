@@ -1,31 +1,79 @@
+/* ==================== General & Section Padding ==================== */
 .quickdiscounts {
-  padding: 20px;
+  padding: 20px; /* Resetting padding for better control via media queries */
 }
 
+/* ==================== Heading and Separator ==================== */
 .quickdiscounts h1 {
   font-size: 28px;
   margin-bottom: 10px;
+  text-align: center;
 }
 
 .quickdiscounts hr {
-  margin-bottom: 20px;
+  width: 150px;
+  height: 3px;
+  background-color: #ff4d4f;
+  border: none;
+  margin: 0 auto 20px;
 }
 
+/* ==================== Grid Layout for Items ==================== */
 .quickdiscounts-list {
   display: grid;
+  /* The core of the responsive design. Auto-fills columns with a minimum width of 220px. */
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   gap: 20px;
+  /* Center the grid within its container on large screens */
+  justify-content: center;
+  max-width: 1200px; /* Optional: Prevents grid from getting too wide on huge screens */
+  margin: 0 auto;
 }
 
+/* ==================== Individual Item Styling ==================== */
 .quickdiscount-item {
   display: flex;
   flex-direction: column;
   margin-bottom: 20px;
+  transition: transform 0.2s ease-in-out;
+}
+
+.quickdiscount-item:hover {
+  transform: translateY(-5px);
 }
 
 .discount-info {
   margin-top: 5px;
   font-size: 14px;
   color: #ff4d4f;
+  text-align: center;
+  font-weight: 600;
 }
 
+/* ==================== Media Queries for Refinement ==================== */
+
+/* Tablet & Smaller Desktop Screens (up to 1024px) */
+@media (max-width: 1024px) {
+  .quickdiscounts {
+    padding: 20px 2%; /* Adjusted padding for better fit */
+  }
+}
+
+/* Mobile Screens (up to 600px) */
+@media (max-width: 600px) {
+  .quickdiscounts h1 {
+    font-size: 24px;
+  }
+  
+  .quickdiscounts hr {
+    width: 120px;
+  }
+}
+
+/* Very Small Mobile Screens (up to 400px) */
+@media (max-width: 400px) {
+  .quickdiscounts-list {
+    /* On very small screens, make the cards slightly smaller to prevent a single column */
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  }
+}

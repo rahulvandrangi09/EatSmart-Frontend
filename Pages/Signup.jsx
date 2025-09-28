@@ -3,7 +3,8 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "./CSS/login.css";
 
-const Signup = () => {
+// ✅ The Signup component must accept the 'switchToLogin' prop.
+const Signup = ({ switchToLogin }) => {
   const [form, setForm] = useState({ name: "", email: "", password: "" });
   const navigate = useNavigate();
 
@@ -14,9 +15,9 @@ const Signup = () => {
   const handleSubmit = async () => {
     try {
       const res = await axios.post("http://localhost:5000/api/auth/signup", form);
-      localStorage.setItem("token", res.data.token);  // ✅ Save JWT
+      localStorage.setItem("token", res.data.token);
       alert("Signup successful!");
-      navigate("/"); // redirect to homepage or cart
+      navigate("/");
     } catch (err) {
       console.error(err.response?.data || err.message);
       alert("Signup failed!");
@@ -36,6 +37,15 @@ const Signup = () => {
           <input type="checkbox" id="terms" />
           <label htmlFor="terms">
             By continuing, I agree to the terms of use and policy
+            <br />
+            Already Have an account{" "}
+            {/* ✅ CORRECTED: Use a clickable span with the `switchToLogin` prop */}
+            <span
+              onClick={switchToLogin}
+              style={{ cursor: "pointer", color: "blue", fontWeight: "600" }}
+            >
+              Click Here
+            </span>
           </label>
         </div>
         <button onClick={handleSubmit}>Continue</button>

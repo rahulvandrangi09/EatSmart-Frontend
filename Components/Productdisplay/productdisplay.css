@@ -1,73 +1,134 @@
-.productdisplay{
+.productdisplay {
     display: flex;
-    margin: 0px 170px;
+    margin: 20px 5%; /* Use a percentage for a fluid margin */
+    flex-direction: row;
+    flex-wrap: wrap; /* Allows sections to wrap on smaller screens */
+    gap: 30px; /* Add a gap for consistent spacing between sections */
+    justify-content: center;
 }
 
-.productdisplay-left{
+.productdisplay-left {
     display: flex;
-    gap: 15px;
+    flex-direction: column; /* Stack items vertically */
+    gap: 10px;
 }
 
-.productdisplayimg{
+.productdisplay-right {
+    flex: 1; /* Allows the right section to grow and fill available space */
+    margin: 0; /* Remove fixed margin for better control */
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    padding: 10px; /* Add some padding */
+    box-sizing: border-box; /* Ensures padding doesn't affect the overall width */
+    max-width: 600px; /* Limit the max-width on large screens */
 }
 
-.productdisplayimg img{
+/* Sub-sections of the left side */
+.productdisplayimg {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.productdisplayimg img {
     height: 100px;
     object-fit: contain;
+    width: auto;
+    cursor: pointer;
 }
 
-.productdisplay-main{
-    width: 500px;
+.productdisplay-main {
+    width: 100%;
+    max-width: 500px;
     object-fit: contain;
+    height: auto;
 }
 
-.productdisplay-right{
-    margin: 0px 70px;
-    display: flex;
-    flex-direction: column;
-}
-
-.productdisplay-right h1{
+/* Right side content */
+.productdisplay-right h1 {
     color: black;
     font-size: 40px;
     font-weight: 700;
 }
 
-.productdisplay-right-star{
+.productdisplay-right-star {
     display: flex;
     align-items: center;
     margin-top: 13px;
-    gap:2px;
+    gap: 2px;
     font-size: 14px;
 }
 
-.productprice{
+.productprice {
     display: flex;
-    margin: 40px 0px;
+    margin: 40px 0;
     gap: 20px;
     font-size: 20px;
     font-weight: 700;
+    flex-wrap: wrap; /* Allows prices to wrap if space is limited */
 }
 
-.productpriceold{
+.productpriceold {
     color: grey;
     text-decoration: line-through;
 }
 
-.productpricenew{
+.productpricenew {
     color: black;
 }
 
-.productdisplay-right button{
-    padding: 20px 40px;
-    width: 200px;
+.productdisplay-right button {
+    padding: 15px 30px; /* Adjusted padding for better fit */
+    width: 100%; /* Make button full-width on small screens */
+    max-width: 200px; /* Limit button width on large screens */
     font-size: 14px;
     font-weight: 600;
     color: black;
     background-color: rgb(96, 205, 255);
     border: none;
-    outline: none;cursor: pointer;
+    outline: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.productdisplay-right button:hover {
+    background-color: rgb(75, 180, 230);
+}
+
+@media (max-width: 1024px) {
+    .productdisplay {
+        flex-direction: column; /* Stack the main sections on smaller screens */
+        align-items: center;
+    }
+    .productdisplay-left,
+    .productdisplay-right {
+        max-width: 100%;
+    }
+    .productdisplay-main {
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .productdisplay-right h1 {
+        font-size: 32px;
+    }
+    .productprice {
+        font-size: 18px;
+        margin: 20px 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .productdisplay-right h1 {
+        font-size: 24px;
+    }
+    .productprice {
+        font-size: 16px;
+        gap: 10px;
+    }
+    .productdisplay-right button {
+        padding: 12px 20px;
+        font-size: 12px;
+    }
 }

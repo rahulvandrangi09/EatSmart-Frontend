@@ -1,42 +1,94 @@
-/* src/Components/Popular/popular.css */
+/* ==================== Universal & Box Sizing ==================== */
+* { 
+    box-sizing: border-box; 
+}
 
-* { box-sizing: border-box; }   /* important */
-
+/* ==================== Popular Section Container ==================== */
 .popular {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 18px;
-  padding: 40px 16px;
-  min-height: 60vh;
-  background: transparent;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+    padding: 40px 16px;
+    min-height: 60vh;
+    background: transparent;
 }
 
 .popular h1 {
-  color: #111;
-  font-size: 2.2rem;
-  font-weight: 700;
-  margin: 0;
-  text-align: center;
+    color: #111;
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin: 0;
+    text-align: center;
 }
 
 .popular hr {
-  width: 160px;
-  height: 4px;
-  border: none;
-  border-radius: 4px;
-  background-color: #ccc;
-  margin: 8px 0 0 0;
+    width: 160px;
+    height: 4px;
+    border: none;
+    border-radius: 4px;
+    background-color: #ccc;
+    margin: 8px 0 0 0;
 }
 
-/* Container for product cards */
+/* ==================== Product Cards Container ==================== */
 .popular-items {
-  width: 100%;
-  max-width: 1200px;      /* center column width */
-  display: flex;
-  flex-wrap: wrap;        /* lets items move to new lines */
-  gap: 20px;
-  justify-content: center;
-  align-items: flex-start;
-  padding: 20px 8px;
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 20px 8px;
+}
+
+/* ==================== Responsive Media Queries ==================== */
+
+/* For tablets and medium-sized desktops */
+@media (max-width: 1024px) {
+    .popular {
+        padding: 30px 10px;
+        gap: 15px;
+    }
+
+    .popular h1 {
+        font-size: 2rem;
+    }
+
+    .popular-items {
+        gap: 15px;
+    }
+}
+
+/* For mobile devices */
+@media (max-width: 768px) {
+    .popular {
+        padding: 20px 8px;
+        gap: 10px;
+    }
+
+    .popular h1 {
+        font-size: 1.8rem;
+    }
+
+    .popular hr {
+        width: 120px;
+    }
+
+    .popular-items {
+        gap: 10px;
+        /* Re-adjust padding for very small screens if necessary */
+        padding: 10px 4px;
+    }
+}
+
+@media (max-width: 480px) {
+    .popular h1 {
+        font-size: 1.5rem;
+    }
+
+    .popular hr {
+        width: 100px;
+    }
 }

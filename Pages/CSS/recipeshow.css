@@ -1,12 +1,11 @@
 .recipeshow {
   max-width: 900px;
-  margin: 50px auto;
+  /* Use a percentage for margin to create spacing on smaller screens */
+  margin: 50px 5%;
   padding: 20px;
-
   background: #fff;
   border-radius: 16px;
   box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.1);
-
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -37,13 +36,16 @@
   text-align: center;
   line-height: 1.6;
   margin: 10px 0;
+  /* Add padding to prevent text from touching screen edges */
+  padding: 0 10px;
 }
 
 .recipeshow h3 {
   font-size: 24px;
   font-weight: 600;
   display: flex;
-  padding-left: 50px;
+  /* Remove fixed padding and use a relative value */
+  padding-left: 5%;
   color: #333;
   margin-top: 20px;
   margin-bottom: 10px;
@@ -56,4 +58,20 @@
   line-height: 1.7;
   max-width: 600px;
   text-align: justify;
+  /* Add padding to prevent text from touching screen edges */
+  padding: 0 10px;
+}
+
+/* Media Queries for Mobile Devices */
+@media (max-width: 768px) {
+  .recipeshow h1 {
+    font-size: 28px;
+  }
+  .recipeshow h3 {
+    font-size: 20px;
+  }
+  .recipe-desc,
+  .recipe-procedure {
+    font-size: 14px;
+  }
 }

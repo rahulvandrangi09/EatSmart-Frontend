@@ -9,9 +9,9 @@ const Productpage = () => {
   const { all_products } = useContext(Dailycontext)
   const { productId } = useParams()
 
-  const product = all_products.find((e) => e.id === Number(productId))
+  // ✅ Corrected Line: Compare string IDs
+  const product = all_products.find((e) => String(e.id) === String(productId))
 
-  // Handle invalid product
   if (!product) {
     return <h2 style={{ textAlign: "center", margin: "50px 0" }}>❌ Product not found</h2>
   }

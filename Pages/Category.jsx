@@ -13,6 +13,7 @@ const Category = (props) => {
   const [ingredientInput, setIngredientInput] = useState("");
   const [ingredients, setIngredients] = useState([]);
   const [generatedRecipe, setGeneratedRecipe] = useState(null);
+  const [loading, setLoading] = useState(false); // ✅ new loading state
 
   // Add ingredient manually or on Enter
   const handleAddIngredient = () => {
@@ -31,6 +32,9 @@ const Category = (props) => {
 
   // Call AI backend
   const handleGenerateRecipe = async () => {
+    setLoading(true); // start loading
+    setGeneratedRecipe(null);
+
     try {
       const response = await fetch("http://localhost:5000/smartrecipes", {
         method: "POST",
@@ -45,6 +49,8 @@ const Category = (props) => {
     } catch (error) {
       console.error("Error generating recipe:", error);
       setGeneratedRecipe(null);
+    } finally {
+      setLoading(false); // stop loading
     }
   };
 
@@ -74,14 +80,21 @@ const Category = (props) => {
 
       {/* Generate Recipe Button */}
       {ingredients.length >= 4 && (
-        <button className="generate-btn" onClick={handleGenerateRecipe}>
-          Generate Recipe
+        <button className="generate-btn" onClick={handleGenerateRecipe} disabled={loading}>
+          {loading ? "Generating..." : "Generate Recipe"}
         </button>
       )}
 
+      {/* Show loading symbol */}
+      {loading && (
+        <div className="loading-spinner">
+          <div className="spinner"></div>
+          <p>Cooking up your recipe... 🍳</p>
+        </div>
+      )}
+
       {/* Display AI Generated Recipe */}
-      {/* Display AI Generated Recipe */}
-      {generatedRecipe && generatedRecipe.recipeText && (
+      {generatedRecipe && generatedRecipe.recipeText && !loading && (
         <div className="generated-recipe-card">
           <h3 className="recipe-title">🍴 AI Generated Recipe</h3>
 

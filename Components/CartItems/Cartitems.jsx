@@ -7,6 +7,26 @@ const Cartitems = () => {
   const { getTotal, all_products, cartItem, addToCart, removeFromCart } =
     useContext(Dailycontext);
 
+  const handleAdd = (id) => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      alert("⚠️ Please login first to add items to your cart.");
+      window.location.href = "/login";
+      return;
+    }
+    addToCart(id);
+  };
+
+  const handleRemove = (id) => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      alert("⚠️ Please login first to remove items from your cart.");
+      window.location.href = "/login";
+      return;
+    }
+    removeFromCart(id);
+  };
+
   return (
     <div className="cartitems">
       <div className="cartitemformatmain">
@@ -18,14 +38,14 @@ const Cartitems = () => {
         <p>Remove</p>
       </div>
       <hr />
-      
+
       {Object.keys(cartItem).map((id) => {
         const quantity = cartItem[id];
         if (quantity === 0) return null;
 
-        // Find product info dynamically
-        const product = all_products.find((p) => p.id === Number(id));
-        if (!product) return null; // safety check
+        const product = all_products.find((p) => String(p.id) === String(id));
+
+        if (!product) return null;
 
         return (
           <div key={id}>
@@ -34,15 +54,15 @@ const Cartitems = () => {
               <p>{product.name}</p>
               <p>₹{product.new_price}</p>
               <div className="cartitemsquantity-controls">
-                <button onClick={() => removeFromCart(product.id)}>-</button>
+                <button onClick={() => handleRemove(product.id)}>-</button>
                 <span>{quantity}</span>
-                <button onClick={() => addToCart(product.id)}>+</button>
+                <button onClick={() => handleAdd(product.id)}>+</button>
               </div>
               <p>₹{product.new_price * quantity}</p>
               <img
                 src={removeicon}
                 className="carticonremove"
-                onClick={() => removeFromCart(product.id)}
+                onClick={() => handleRemove(product.id)}
                 alt="Remove"
               />
             </div>
@@ -70,7 +90,19 @@ const Cartitems = () => {
               <h3>₹{getTotal()}</h3>
             </div>
           </div>
-          <button>Proceed To Checkout</button>
+          <button
+            onClick={() => {
+              const token = localStorage.getItem("token");
+              if (!token) {
+                alert("⚠️ Please login first to checkout.");
+                window.location.href = "/login";
+                return;
+              }
+              alert("✅ Proceeding to checkout...");
+            }}
+          >
+            Proceed To Checkout
+          </button>
         </div>
       </div>
     </div>

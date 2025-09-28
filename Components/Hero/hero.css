@@ -1,57 +1,112 @@
 .heromain {
-  height: 90vh;
-  width: 100%;
-  background-image: url("../Assests/OrderNow.png");
-  background-size: cover;
-  background-position: center;
-  display: flex;
+    height: 90vh;
+    width: 100%;
+    background-image: url("../Assests/OrderNow.png");
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: row; /* Default layout for large screens */
 }
 
 .hero-left {
-  width: 50%;
-  flex: 1;
+    flex: 1;
 }
 
 .hero-right {
-  width: 50%;
-  flex: 1;
-  display: flex;
-  align-items: center;     
-  justify-content: flex-start;
-  padding-left: 150px;    
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-left: 150px;
+    box-sizing: border-box; /* Ensures padding doesn't affect the box model */
 }
 
 .hero-content {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    max-width: 400px; /* Prevents text from becoming too wide on large screens */
 }
 
 .hero-heading {
-  font-size: 40px;
-  color: #222;
-  font-weight: 700;
+    font-size: 40px;
+    color: #222;
+    font-weight: 700;
 }
 
 .hero-text {
-  font-size: 1.5rem;
-  color: #2e2e2e;
-  font-weight: 600;
+    font-size: 1.5rem;
+    color: #2e2e2e;
+    font-weight: 600;
 }
 
 .hero-btn {
-  background: #28a745;
-  color: #fff;
-  padding: 14px 32px;
-  width: 160px;
-  border-radius: 20px;
-  font-size: 1rem;
-  border: none;
-  cursor: pointer;
-  transition: 0.3s ease;
+    background: #28a745;
+    color: #fff;
+    padding: 14px 32px;
+    width: 160px;
+    border-radius: 20px;
+    font-size: 1rem;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s ease;
+    text-align: center; /* Ensures text is centered on the button */
 }
 
 .hero-btn:hover {
-  background: #218838;
+    background: #218838;
+}
+
+@media (max-width: 1200px) {
+    .hero-right {
+        padding-left: 50px; /* Reduce padding on tablets */
+    }
+}
+
+@media (max-width: 768px) {
+    .heromain {
+        flex-direction: column; /* Stack columns on smaller screens */
+        height: auto; /* Allow height to adjust based on content */
+        padding: 50px 0;
+    }
+
+    .hero-right {
+        justify-content: center; /* Center content horizontally */
+        align-items: center; /* Center content vertically */
+        padding: 20px;
+        text-align: center;
+    }
+
+    .hero-content {
+        align-items: center; /* Center align all text and button */
+    }
+
+    .hero-heading {
+        font-size: 32px; /* Reduce font size */
+    }
+
+    .hero-text {
+        font-size: 1.2rem; /* Reduce font size */
+    }
+
+    .hero-btn {
+        width: 100%; /* Make button full-width */
+        max-width: 200px; /* Limit button width on larger phones */
+    }
+    
+    .hero-left {
+        /* Hide the left side on small screens if it's just a blank space */
+        display: none; 
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-heading {
+        font-size: 24px;
+    }
+
+    .hero-text {
+        font-size: 1rem;
+    }
 }

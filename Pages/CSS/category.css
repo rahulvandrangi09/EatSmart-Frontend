@@ -1,17 +1,20 @@
-.findrecipe{
-    display: flex;
+/* ==================== Recipe Category & Finder ==================== */
+.findrecipe {
+  display: flex;
   justify-content: center;
   align-items: center;
   gap: 10px;
-  margin: 20px 0;
+  margin: 20px 5%; /* Use percentage for fluid margins */
+  flex-wrap: wrap; /* Allows items to wrap on smaller screens */
 }
 
-.recipefinder{
-    flex: 1;          /* input takes available space */
-  max-width: 400px; /* limit width */
+.recipefinder {
+  flex: 1;
+  max-width: 400px;
   padding: 10px 15px;
   border: 1px solid #ccc;
   border-radius: 6px;
+  box-sizing: border-box; /* Ensures padding doesn't increase width */
 }
 
 .findrecipe button {
@@ -28,52 +31,59 @@
   background-color: #ff4949;
 }
 
-.recipecategory-index{
-    display: flex;
-    margin: 0px 170px;
-    justify-content: space-between;
-    align-items: center;
+.recipecategory-index {
+  display: flex;
+  margin: 0px 5%; /* Use percentage for fluid margins */
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap; /* Allows wrapping */
 }
 
-.recipecategory-sort{
-    padding: 10px 20px;
-    border-radius: 40px;
-    border: 1px solid black;
+.recipecategory-sort {
+  padding: 10px 20px;
+  border-radius: 40px;
+  border: 1px solid black;
+  margin-top: 10px; /* Add margin for spacing on small screens */
 }
 
-.recipecategory-index p span{
-    font-weight: 600;
+.recipecategory-index p span {
+  font-weight: 600;
 }
 
-.recipecategoryproducts{
-    margin: 10px 20px;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    gap: 20px;
-    justify-items: center;
+.recipecategoryproducts {
+  margin: 10px 20px;
+  display: grid;
+  /* Adjust grid layout for different screen sizes */
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  justify-items: center;
 }
 
-.recipecategoryproducts .item{
-    width: 100%;
-    object-fit: contain;
+.recipecategoryproducts .item {
+  width: 100%;
+  object-fit: contain;
 }
 
-.category-loadmore{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 60px auto;
-    width: 233px;
-    height: 50px;
-    border-radius: 20px;
-    background-color: antiquewhite;
-    color: black;
-    font-weight: 500;
+.category-loadmore {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 60px auto;
+  width: 90%; /* Use percentage for a fluid width */
+  max-width: 233px; /* Keep max-width for desktop */
+  height: 50px;
+  border-radius: 20px;
+  background-color: antiquewhite;
+  color: black;
+  font-weight: 500;
+  cursor: pointer;
 }
 
+/* ==================== Smart Recipe Components ==================== */
 .ingredients-list {
   margin: 12px 0;
   display: flex;
+  justify-content: center;
   flex-wrap: wrap;
   gap: 8px;
 }
@@ -86,13 +96,16 @@
 }
 
 .generate-btn {
-  margin-top: 12px;
+  margin: 15px auto 0 auto;
   padding: 10px 16px;
   border: none;
   background: #4caf50;
   color: white;
   border-radius: 8px;
   cursor: pointer;
+  display: block;
+  text-align: center;
+  font-weight: 500;
 }
 
 .generated-recipe {
@@ -101,15 +114,16 @@
   border: 1px solid #ddd;
   border-radius: 10px;
   background: #fafafa;
-  white-space: pre-wrap; /* Keep recipe formatting */
+  white-space: pre-wrap;
 }
+
 .generated-recipe-card {
   background: #fff;
   padding: 20px;
   margin: 20px auto;
   border-radius: 12px;
   max-width: 700px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .generated-recipe-card .recipe-title {
@@ -148,4 +162,56 @@
 .step-image img {
   display: block;
   margin: 0 auto;
+  max-width: 100%; /* Ensures image fits within its container */
+  height: auto;
+}
+
+/* ==================== Loading Spinner ==================== */
+.loading-spinner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px auto;
+}
+
+.spinner {
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #4caf50;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+  margin-bottom: 10px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* ==================== Media Queries for Responsiveness ==================== */
+@media (max-width: 768px) {
+  .recipecategory-index {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .findrecipe {
+    flex-direction: column;
+  }
+  .recipefinder {
+    max-width: 100%;
+    width: 100%;
+  }
+  .findrecipe button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .recipecategoryproducts {
+    grid-template-columns: 1fr; /* Stack items on very small screens */
+  }
+  .recipecategory-index p, .recipecategory-sort {
+    font-size: 14px;
+  }
 }

@@ -8,74 +8,64 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 const CartSpendingAnalysis = () => {
   const { cartItem, all_products } = useContext(Dailycontext);
 
-  const [healthyTotal, setHealthyTotal] = useState(0);
-  const [unhealthyTotal, setUnhealthyTotal] = useState(0);
+  const [dataChart, setDataChart] = useState({
+    labels: ["Healthy", "Unhealthy"],
+    datasets: [{ data: [0, 0], backgroundColor: ["#4CAF50", "#F44336"] }],
+  });
+
   const [itemsList, setItemsList] = useState([]);
 
-  const classifyItem = async (item) => {
-    try {
-      // Search OpenFoodFacts for the product
-      const res = await fetch(
-        `https://world.openfoodfacts.org/cgi/search.pl?search_terms=${encodeURIComponent(
-          item.name
-        )}&search_simple=1&json=1&page_size=1`
-      );
-      const data = await res.json();
-      const product = data.products?.[0];
-
-      // Default rule if no product found
-      if (!product) {
-        setHealthyTotal((prev) => prev + item.price);
-        setItemsList((prev) => [...prev, item]);
-        return;
-      }
-
-      // Simple health rule: if sugar per 100g > 10g OR fat > 10g → unhealthy
-      const sugar = parseFloat(product.nutriments?.sugars_100g) || 0;
-      const fat = parseFloat(product.nutriments?.fat_100g) || 0;
-
-      if (sugar > 10 || fat > 10) {
-        setUnhealthyTotal((prev) => prev + item.price);
-      } else {
-        setHealthyTotal((prev) => prev + item.price);
-      }
-
-      setItemsList((prev) => [...prev, item]);
-    } catch (err) {
-      console.error("OpenFoodFacts API error:", err);
-      // Default fallback to healthy
-      setHealthyTotal((prev) => prev + item.price);
-      setItemsList((prev) => [...prev, item]);
-    }
-  };
-
   useEffect(() => {
-    setHealthyTotal(0);
-    setUnhealthyTotal(0);
-    setItemsList([]);
+    const classifyCart = async () => {
+      const cartItems = Object.keys(cartItem)
+        .filter((id) => cartItem[id] > 0)
+        .map((id) => {
+          const product = all_products.find((p) => String(p.id) === String(id));
+          return product
+            ? { name: product.name, price: product.new_price * cartItem[id] }
+            : null;
+        })
+        .filter(Boolean);
 
-    const cartItems = Object.keys(cartItem)
-      .filter((id) => cartItem[id] > 0)
-      .map((id) => {
-        const product = all_products.find((p) => p.id === Number(id));
-        return product
-          ? { name: product.name, price: product.new_price * cartItem[id] }
-          : null;
-      })
-      .filter(Boolean);
+      let healthyTotal = 0;
+      let unhealthyTotal = 0;
 
-    cartItems.forEach((item) => classifyItem(item));
+      const processedItems = [];
+
+      for (const item of cartItems) {
+        try {
+          const res = await fetch(
+            `https://world.openfoodfacts.org/cgi/search.pl?search_terms=${encodeURIComponent(
+              item.name
+            )}&search_simple=1&json=1&page_size=1`
+          );
+          const data = await res.json();
+          const product = data.products?.[0];
+
+          const sugar = parseFloat(product?.nutriments?.sugars_100g) || 0;
+          const fat = parseFloat(product?.nutriments?.fat_100g) || 0;
+
+          if (!product || sugar <= 10 && fat <= 10) {
+            healthyTotal += item.price;
+          } else {
+            unhealthyTotal += item.price;
+          }
+        } catch {
+          healthyTotal += item.price; // fallback
+        }
+
+        processedItems.push(item);
+      }
+
+      setItemsList(processedItems);
+      setDataChart({
+        labels: ["Healthy", "Unhealthy"],
+        datasets: [{ data: [healthyTotal, unhealthyTotal], backgroundColor: ["#4CAF50", "#F44336"] }],
+      });
+    };
+
+    classifyCart();
   }, [cartItem, all_products]);
-
-  const data = {
-    labels: ["Healthy", "Unhealthy"],
-    datasets: [
-      {
-        data: [healthyTotal, unhealthyTotal],
-        backgroundColor: ["#4CAF50", "#F44336"],
-      },
-    ],
-  };
 
   const isCartEmpty = itemsList.length === 0;
 
@@ -102,14 +92,15 @@ const CartSpendingAnalysis = () => {
 
           <div className="totals" style={{ margin: "20px 0" }}>
             <p>
-              <strong>Healthy Spending:</strong> ₹{healthyTotal}
+              <strong>Healthy Spending:</strong> ₹{dataChart.datasets[0].data[0]}
             </p>
             <p>
-              <strong>Unhealthy Spending:</strong> ₹{unhealthyTotal}
+              <strong>Unhealthy Spending:</strong> ₹{dataChart.datasets[0].data[1]}
             </p>
           </div>
+
           <div style={{ maxWidth: "400px", margin: "0 auto" }}>
-            <Pie data={data} />
+            <Pie data={dataChart} />
           </div>
         </>
       )}
