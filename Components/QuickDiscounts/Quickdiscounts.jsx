@@ -7,6 +7,7 @@ import { Dailycontext } from "../../Context/Dailycontext";
 const QuickDiscounts = () => {
   const [discountProducts, setDiscountProducts] = useState([]);
   const { all_products, setAllProducts } = useContext(Dailycontext);
+  const [loading, setLoading] = useState(true);
 
   // Fetch products with expiry dates (Quick Discounts)
   useEffect(() => {
@@ -14,16 +15,22 @@ const QuickDiscounts = () => {
       try {
         const res = await fetch("http://localhost:5000/quickdiscounts");
         const data = await res.json();
-        setDiscountProducts(data);
+        
+        // Filter out any expired items (daysLeft <= 0) on frontend as well
+        const validProducts = data.filter((p) => p.daysLeft > 0);
+        setDiscountProducts(validProducts);
 
         
         setAllProducts((prev) => {
           const existingIds = new Set(prev.map((p) => p.id));
-          const newOnes = data.filter((p) => !existingIds.has(p.id));
+          const newOnes = validProducts.filter((p) => !existingIds.has(p.id));
           return [...prev, ...newOnes];
         });
       } catch (err) {
         console.error("Error fetching quick discounts:", err);
+        setDiscountProducts([]);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -34,9 +41,11 @@ const QuickDiscounts = () => {
     <div className="quickdiscounts">
       <h1>⚡ Quick Discounts</h1>
       <hr />
-      <div className="quickdiscounts-list">
-        {discountProducts.length > 0 ? (
-          discountProducts.map((item) => (
+      {loading ? (
+        <p>Loading discounts...</p>
+      ) : discountProducts.length > 0 ? (
+        <div className="quickdiscounts-list">
+          {discountProducts.map((item) => (
             <div key={item.id} className="quickdiscount-item">
               <div className="product-card">
                 <div className="item-container">
@@ -50,7 +59,7 @@ const QuickDiscounts = () => {
                   <div className="discount-box">
                     <span>
                       🕒{" "}
-                      {item.daysLeft !== null
+                      {item.daysLeft !== null && item.daysLeft > 0
                         ? `${item.daysLeft} days left until expiry` 
                         : "No expiry"}
                     </span>
@@ -64,11 +73,11 @@ const QuickDiscounts = () => {
                 </div>
               </div>
             </div>
-          ))
-        ) : (
-          <p>No discount items available at the moment.</p>
-        )}
-      </div>
+          ))}
+        </div>
+      ) : (
+        <p>No discount items available at the moment. Come back later!</p>
+      )}
     </div>
   );
 };

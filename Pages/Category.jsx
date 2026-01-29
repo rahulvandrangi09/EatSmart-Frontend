@@ -13,7 +13,10 @@ const Category = (props) => {
   const [ingredientInput, setIngredientInput] = useState("");
   const [ingredients, setIngredients] = useState([]);
   const [generatedRecipe, setGeneratedRecipe] = useState(null);
-  const [loading, setLoading] = useState(false); // ✅ new loading state
+  const [loading, setLoading] = useState(false);
+  const [sortBy, setSortBy] = useState("default");
+  const [showSortDropdown, setShowSortDropdown] = useState(false);
+  const [itemsToShow, setItemsToShow] = useState(12);
 
   // Add ingredient manually or on Enter
   const handleAddIngredient = () => {
@@ -30,33 +33,83 @@ const Category = (props) => {
     }
   };
 
+  // Remove ingredient
+  const removeIngredient = (index) => {
+    setIngredients(ingredients.filter((_, i) => i !== index));
+  };
+
   // Call AI backend
   const handleGenerateRecipe = async () => {
+    if (ingredients.length === 0) {
+      alert("Please add at least one ingredient");
+      return;
+    }
+
     setLoading(true); // start loading
     setGeneratedRecipe(null);
 
     try {
-      const response = await fetch("http://localhost:5000/smartrecipes", {
+      const response = await fetch(
+        "http://localhost:5000/smartrecipes",
+        {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ingredients }),
-      });
+        }
+      );
 
       const data = await response.json();
       console.log("AI Recipe Response:", data);
 
-      setGeneratedRecipe(data); // <-- now contains recipeText + stepImages
+      if (data.error) {
+        setGeneratedRecipe({ error: data.error });
+      } else {
+        setGeneratedRecipe(data);
+      }
     } catch (error) {
       console.error("Error generating recipe:", error);
-      setGeneratedRecipe(null);
+      setGeneratedRecipe({ error: "Failed to generate recipe. Please try again." });
     } finally {
       setLoading(false); // stop loading
     }
   };
 
+  // Sort recipes
+  const sortRecipes = (recipes) => {
+    let sorted = [...recipes];
+    switch (sortBy) {
+      case "name-asc":
+        sorted.sort((a, b) => a.name.localeCompare(b.name));
+        break;
+      case "name-desc":
+        sorted.sort((a, b) => b.name.localeCompare(a.name));
+        break;
+      default:
+        break;
+    }
+    return sorted;
+  };
+
+  // Filter by category and sort
+  const filteredRecipes = sortRecipes(
+    all_recipes.filter((item) => item.category === props.cat)
+  );
+
+  // Get recipes to display based on itemsToShow
+  const recipesToDisplay = filteredRecipes.slice(0, itemsToShow);
+  const totalRecipes = filteredRecipes.length;
+
+  // Handle explore more
+  const handleExploreMore = () => {
+    setItemsToShow((prev) => prev + 12);
+  };
+
   return (
     <div className="category">
-      {/* Ingredient Input */}
+      {/* AI Recipe Generator Section */}
+      <div className="ai-recipe-section">
+        <h2>🤖 AI Recipe Generator</h2>
+        
       <div className="findrecipe">
         <input
           type="text"
@@ -70,18 +123,26 @@ const Category = (props) => {
       </div>
 
       {/* Show entered ingredients */}
+      {ingredients.length > 0 && (
       <div className="ingredients-list">
         {ingredients.map((ing, index) => (
           <span key={index} className="ingredient-chip">
             {ing}
+            <button
+              className="remove-chip"
+              onClick={() => removeIngredient(index)}
+            >
+              ✕
+            </button>
           </span>
         ))}
       </div>
+      )}
 
       {/* Generate Recipe Button */}
-      {ingredients.length >= 4 && (
+      {ingredients.length > 0 && (
         <button className="generate-btn" onClick={handleGenerateRecipe} disabled={loading}>
-          {loading ? "Generating..." : "Generate Recipe"}
+          {loading ? "Generating..." : "🚀 Generate Recipe"}
         </button>
       )}
 
@@ -94,13 +155,15 @@ const Category = (props) => {
       )}
 
       {/* Display AI Generated Recipe */}
-      {generatedRecipe && generatedRecipe.recipeText && !loading && (
+      {generatedRecipe && !generatedRecipe.error && !loading && (
         <div className="generated-recipe-card">
           <h3 className="recipe-title">🍴 AI Generated Recipe</h3>
 
+          <h4>Recipe: {generatedRecipe.title}</h4>
+
           <h4>Ingredients:</h4>
           <ul className="centered-ingredients">
-            {ingredients.map((ing, idx) => (
+            {generatedRecipe.ingredients?.map((ing, idx) => (
               <li key={idx}>{ing}</li>
             ))}
           </ul>
@@ -108,46 +171,74 @@ const Category = (props) => {
           <h4>Instructions:</h4>
           <div className="instructions-wrapper">
             <ReactMarkdown
-              children={generatedRecipe.recipeText}
+              children={generatedRecipe.instructions || "Instructions not available"}
               rehypePlugins={[rehypeRaw, rehypeSanitize]}
             />
           </div>
-
-          {/* Show step images if any */}
-          {generatedRecipe.stepImages &&
-            generatedRecipe.stepImages.map((img, idx) =>
-              img ? (
-                <div key={idx} className="step-image">
-                  <p>Step {idx + 1}</p>
-                  <img
-                    src={`data:image/png;base64,${img.data}`}
-                    alt={`Step ${idx + 1}`}
-                    style={{
-                      maxWidth: "400px",
-                      borderRadius: "8px",
-                      margin: "10px auto",
-                      display: "block",
-                    }}
-                  />
-                </div>
-              ) : null
-            )}
         </div>
       )}
 
-      {/* Existing Recipe Category Display */}
+      {/* Error message */}
+      {generatedRecipe && generatedRecipe.error && (
+        <div className="error-message">
+          <p>❌ {generatedRecipe.error}</p>
+        </div>
+      )}
+      </div>
+
+      <hr className="separator" />
+
+      {/* Recipe Category Display */}
       <div className="recipecategory-index">
         <p>
-          <span>Showing 1-12 </span> out of 36 products
+          <span>Showing 1-{Math.min(itemsToShow, totalRecipes)}</span> out of{" "}
+          {totalRecipes} recipes
         </p>
-        <div className="recipecategory-sort">
-          Sort by <img src={dropdown} alt="" />
+        <div className="recipecategory-sort-container">
+          <div
+            className="recipecategory-sort"
+            onClick={() => setShowSortDropdown(!showSortDropdown)}
+          >
+            Sort by <img src={dropdown} alt="dropdown" />
+          </div>
+          {showSortDropdown && (
+            <div className="sort-dropdown">
+              <div
+                className="sort-option"
+                onClick={() => {
+                  setSortBy("default");
+                  setShowSortDropdown(false);
+                }}
+              >
+                {sortBy === "default" && "✓ "} Default
+              </div>
+              <div
+                className="sort-option"
+                onClick={() => {
+                  setSortBy("name-asc");
+                  setShowSortDropdown(false);
+                }}
+              >
+                {sortBy === "name-asc" && "✓ "} Name: A to Z
+              </div>
+              <div
+                className="sort-option"
+                onClick={() => {
+                  setSortBy("name-desc");
+                  setShowSortDropdown(false);
+                }}
+              >
+                {sortBy === "name-desc" && "✓ "} Name: Z to A
+              </div>
+            </div>
+          )}
         </div>
       </div>
 
+      {/* Recipes Display */}
       <div className="recipecategoryproducts">
-        {all_recipes.map((item, i) =>
-          props.cat === item.category ? (
+        {recipesToDisplay.length > 0 ? (
+          recipesToDisplay.map((item, i) => (
             <RecipeItem
               key={i}
               id={item.id}
@@ -155,11 +246,18 @@ const Category = (props) => {
               name={item.name}
               description={item.description}
             />
-          ) : null
+          ))
+        ) : (
+          <p className="no-recipes">No recipes found in this category.</p>
         )}
       </div>
 
-      <div className="category-loadmore">Explore More</div>
+      {/* Explore More Button */}
+      {itemsToShow < totalRecipes && (
+        <div className="category-loadmore" onClick={handleExploreMore}>
+          Explore More
+        </div>
+      )}
     </div>
   );
 };
