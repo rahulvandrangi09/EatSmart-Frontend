@@ -22,7 +22,7 @@ const Navbar = () => {
       </div>
       <ul className="nav-menu">
         <li onClick={() => setMenu("Daily Essentials")}>
-          <Link style={{ textDecoration: "none", color: "black" }} to="/">
+          <Link style={{ textDecoration: "none", color: "black" }} to="/EatSmart-Frontend">
             Daily Essentials
           </Link>
           {menu === "Daily Essentials" ? <hr /> : null}
