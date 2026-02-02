@@ -26,7 +26,7 @@ const Dailycontextprovider = (props) => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const res = await fetch("http://localhost:5000/allproducts");
+        const res = await fetch(`${process.env.REACT_APP_API_URL}/allproducts`);
         let data = await res.json();
         if (!Array.isArray(data)) data = [];
 

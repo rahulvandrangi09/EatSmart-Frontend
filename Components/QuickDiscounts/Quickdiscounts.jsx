@@ -13,7 +13,7 @@ const QuickDiscounts = () => {
   useEffect(() => {
     const fetchDiscountProducts = async () => {
       try {
-        const res = await fetch("http://localhost:5000/quickdiscounts");
+        const res = await fetch(`${process.env.REACT_APP_API_URL}/quickdiscounts`);
         const data = await res.json();
         
         // Filter out any expired items (daysLeft <= 0) on frontend as well

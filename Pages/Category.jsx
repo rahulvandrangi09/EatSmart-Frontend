@@ -50,7 +50,7 @@ const Category = (props) => {
 
     try {
       const response = await fetch(
-        "http://localhost:5000/smartrecipes",
+        `${process.env.REACT_APP_API_URL}/smartrecipes`,
         {
         method: "POST",
         headers: { "Content-Type": "application/json" },

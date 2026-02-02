@@ -38,7 +38,7 @@ const Chatbot = () => {
 
     try {
       const res = await axios.post(
-        "http://localhost:5000/generate-recipe-from-ingredients",
+        `${process.env.REACT_APP_API_URL}/generate-recipe-from-ingredients`,
         { ingredients }
       );
       setRecipe(res.data);
@@ -58,7 +58,7 @@ const Chatbot = () => {
     setRecipe(null);
 
     try {
-      const res = await axios.post("http://localhost:5000/get-recipe", {
+      const res = await axios.post(`${process.env.REACT_APP_API_URL}/get-recipe`, {
         recipe: input,
       });
       setRecipe(res.data);
