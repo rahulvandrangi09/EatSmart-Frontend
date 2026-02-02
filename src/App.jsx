@@ -19,7 +19,7 @@ const App = () => {
       <BrowserRouter>
         <Navbar />
         <Routes>
-          <Route path="/" element={<DailyEssentials />} />
+          <Route path="/EatSmart-Frontend" element={<DailyEssentials />} />
           <Route path="/smartrecipes" element={<Category cat="smartrecipes" />} />
           <Route path="/quickdiscounts" element={<QuickDiscounts cat="quickdiscount" />} />
           <Route path="/alfredai" element={<Chatbot />} />
