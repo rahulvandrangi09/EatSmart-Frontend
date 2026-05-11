@@ -7,6 +7,8 @@ import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import rehypeSanitize from "rehype-sanitize";
 
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+
 const Category = (props) => {
   const { all_recipes } = useContext(Dailycontext);
 
@@ -50,7 +52,7 @@ const Category = (props) => {
 
     try {
       const response = await fetch(
-        `${process.env.REACT_APP_API_URL}/smartrecipes`,
+        `${API_URL}/smartrecipes`,
         {
         method: "POST",
         headers: { "Content-Type": "application/json" },

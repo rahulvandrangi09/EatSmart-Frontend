@@ -1,0 +1,156 @@
+/* src/Item/item.css */
+
+.item {
+  background: #fff;
+  border-radius: 10px;
+  padding: 12px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+  transition: transform .15s ease, box-shadow .15s ease;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+
+  /* responsive width: base for desktop, shrink with screen */
+  width: calc(25% - 20px);   /* 4 cards per row with gap */
+  min-width: 180px;
+
+  /* ✅ make all cards equal height so buttons align */
+  min-height: 340px;
+}
+
+.item:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+}
+
+.item-img {
+  width: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.item-img img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  display: block;
+}
+
+.item-name {
+  margin: 12px 0 8px;
+  font-weight: 600;
+  color: #222;
+  font-size: 1rem;
+
+  /* ✅ reserve space so name length doesn’t shift items */
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.item-price-list {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 6px;
+
+  /* ✅ reserve space for consistent layout */
+  min-height: 30px;
+}
+
+.item-price-new {
+  color: #28a745;
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.item-price-old {
+  color: #888;
+  font-size: 0.9rem;
+  text-decoration: line-through;
+}
+
+/* ✅ Make button always stick to bottom */
+.add-to-cart-btn {
+  margin-top: auto; /* push button down */
+  padding: 10px 18px;
+
+  width: 100%;
+  max-width: 160px;
+
+  background: linear-gradient(135deg, #5bc0de, #007bff);
+  color: #fff;
+
+  border: none;
+  border-radius: 6px;
+
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
+  transition: all 0.2s ease-in-out;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.add-to-cart-btn:hover {
+  background: linear-gradient(135deg, #007bff, #0056b3);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.18);
+}
+
+.add-to-cart-btn:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+/* Responsive breakpoints */
+@media (max-width: 1000px) {
+  .item { width: calc(33.333% - 20px); } /* 3 per row */
+}
+
+@media (max-width: 700px) {
+  .item { width: calc(50% - 16px); } /* 2 per row */
+}
+
+@media (max-width: 420px) {
+  .item { width: 100%; } /* 1 per row */
+}
+
+
+.cart-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.cart-controls button {
+  width: 30px;
+  height: 30px;
+  border: none;
+  background-color: #ff4d4f;
+  color: #fff;
+  font-size: 18px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.cart-controls button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.cart-controls span {
+  min-width: 20px;
+  text-align: center;
+  font-weight: bold;
+}

@@ -2,6 +2,8 @@ import { createContext, useState, useEffect } from "react";
 import personalCareData from "../Components/Assests/new_collections";
 import recipes from "../Components/Assests/all_recipes";
 
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+
 export const Dailycontext = createContext(null);
 
 const Dailycontextprovider = (props) => {
@@ -26,7 +28,7 @@ const Dailycontextprovider = (props) => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const res = await fetch(`${process.env.REACT_APP_API_URL}/allproducts`);
+        const res = await fetch(`${API_URL}/allproducts`);
         let data = await res.json();
         if (!Array.isArray(data)) data = [];
 
@@ -78,6 +80,7 @@ const Dailycontextprovider = (props) => {
     <Dailycontext.Provider
       value={{
         all_products,
+        setAllProducts,
         cartItem,
         all_recipes: recipes,
         addToCart,

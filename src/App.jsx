@@ -9,7 +9,7 @@ import Chatbot from "../Pages/Chatbot.jsx";
 import Productpage from "../Pages/Productpage";
 import Recipeshow from "../Pages/Recipeshow.jsx";
 import Cart from "../Pages/Cart";
-import AuthPage from "../Pages/Auth.jsx"; // <--- Use AuthPage
+import AuthPage from "../Pages/Auth.jsx";
 
 import Dailycontextprovider from "../Context/Dailycontext.jsx";
 
@@ -19,7 +19,7 @@ const App = () => {
       <BrowserRouter>
         <Navbar />
         <Routes>
-          <Route path="/EatSmart-Frontend" element={<DailyEssentials />} />
+          <Route path="/" element={<DailyEssentials />} />
           <Route path="/smartrecipes" element={<Category cat="smartrecipes" />} />
           <Route path="/quickdiscounts" element={<QuickDiscounts cat="quickdiscount" />} />
           <Route path="/alfredai" element={<Chatbot />} />
@@ -28,7 +28,6 @@ const App = () => {
           <Route path="/recipe/:recipeId" element={<Recipeshow />} />
           <Route path="/cart" element={<Cart />} />
 
-          {/* ✅ AuthPage handles login/signup toggle */}
           <Route path="/login" element={<AuthPage />} />
         </Routes>
         <Footer />
