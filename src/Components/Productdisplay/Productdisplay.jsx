@@ -1,19 +1,11 @@
 import React, { useContext } from "react";
 import "./productdisplay.css";
-const star = "/assets/star_icon.png";
-const star_dull = "/assets/star_dull_icon.png";
-import { Dailycontext } from "../../Context/Dailycontext";
-import { useParams } from "react-router-dom";
+import star from "../Assests/star_icon.png";
+import star_dull from "../Assests/star_dull_icon.png";
+import { Dailycontext } from "../Context/Dailycontext";
 
-const Productdisplay = () => {
-  const { productId } = useParams(); // ✅ match route param
-  const { all_products, addToCart, loading } = useContext(Dailycontext);
-
-  if (loading) return <div className="not-found">⏳ Loading...</div>;
-
-  const product = all_products.find((p) => String(p.id) === String(productId));
-
-  
+const Productdisplay = ({ product }) => {
+  const { addToCart } = useContext(Dailycontext);
   if (!product) return <div className="not-found">⚠️ Product not found</div>;
 
   return (

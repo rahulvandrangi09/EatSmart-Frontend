@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Dailycontext } from "../Context/Dailycontext";
+import { Dailycontext } from "../Components/Context/Dailycontext";
 import { Pie } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 

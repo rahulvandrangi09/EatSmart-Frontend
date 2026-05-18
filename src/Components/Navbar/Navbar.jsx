@@ -5,7 +5,7 @@ const cart = "/assets/shopping-cart.png";
 const moon = "/assets/moon.png";
 const sun = "/assets/sun.png";
 import { Link } from "react-router-dom";
-import { Dailycontext } from "../../Context/Dailycontext";
+import { Dailycontext } from "../Context/Dailycontext";
 const Navbar = () => {
   const [menu, setMenu] = useState("Daily Essentials");
   const { gettotalitems } = useContext(Dailycontext);
@@ -22,7 +22,7 @@ const Navbar = () => {
       </div>
       <ul className="nav-menu">
         <li onClick={() => setMenu("Daily Essentials")}>
-          <Link style={{ textDecoration: "none", color: "black" }} to="/EatSmart-Frontend">
+          <Link style={{ textDecoration: "none", color: "black" }} to="/">
             Daily Essentials
           </Link>
           {menu === "Daily Essentials" ? <hr /> : null}

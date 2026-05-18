@@ -1,9 +1,10 @@
 import React, { useContext } from "react";
 import "./item.css";
 import { Link, useNavigate } from "react-router-dom";
-import { Dailycontext } from "../../Context/Dailycontext";
+import { Dailycontext } from "../Context/Dailycontext";
 
 const Item = ({ id, img, name, new_price, old_price }) => {
+  // console.log("Rendering Item with ID:", id);
   const { addToCart, removeFromCart, cartItem } = useContext(Dailycontext);
   const quantity = cartItem[id] || 0;
   const navigate = useNavigate();

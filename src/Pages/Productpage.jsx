@@ -1,15 +1,18 @@
 import React, { useContext } from 'react'
 import { useParams } from 'react-router-dom'
-import { Dailycontext } from '../Context/Dailycontext'
+import { Dailycontext } from '../Components/Context/Dailycontext'
 import Breadcrum from '../Components/BreadCrum/Breadcrum'
 import Productdisplay from '../Components/Productdisplay/Productdisplay'
 import RelatedProducts from '../Components/RelatedProducts/RelatedProducts'
 
 const Productpage = () => {
-  const { all_products } = useContext(Dailycontext)
+  const { all_products, loading } = useContext(Dailycontext)
   const { productId } = useParams()
 
-  // ✅ Corrected Line: Compare string IDs
+  if (loading) {
+    return <h2 style={{ textAlign: "center", margin: "50px 0" }}>⏳ Loading product...</h2>
+  }
+
   const product = all_products.find((e) => String(e.id) === String(productId))
 
   if (!product) {

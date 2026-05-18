@@ -10,8 +10,7 @@ const Popular = () => {
       <div className="popular-items">
         {data.map((item, i) => (
           <Item
-            key={i}
-            id={item.id}
+            id={`static_${item.id}`}
             img={item.image}
             name={item.name}
             new_price={item.new_price}

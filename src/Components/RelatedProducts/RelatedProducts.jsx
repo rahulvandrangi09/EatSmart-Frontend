@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import "./relatedproducts.css";
 import Item from "../Item/Item";
-import { Dailycontext } from "../../Context/Dailycontext";
+import { Dailycontext } from "../Context/Dailycontext";
 
 const RelatedProducts = () => {
   const { all_products, loading } = useContext(Dailycontext);

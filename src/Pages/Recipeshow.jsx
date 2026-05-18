@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { useParams } from "react-router-dom";
-import { Dailycontext } from "../Context/Dailycontext";
+import { Dailycontext } from "../Components/Context/Dailycontext";
 import "./CSS/recipeshow.css";
 
 const Recipeshow = () => {

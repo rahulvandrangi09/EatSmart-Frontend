@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import "./cartitems.css";
-import { Dailycontext } from "../../Context/Dailycontext";
+import { Dailycontext } from "../Context/Dailycontext";
 const removeicon = "/assets/cart_cross_icon.png";
 
 const Cartitems = () => {

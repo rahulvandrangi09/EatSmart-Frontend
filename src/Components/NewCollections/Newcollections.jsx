@@ -1,38 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext } from "react";
 import "./newcollections.css";
 import Item from "../Item/Item";
-import axios from "axios";
-
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+import { Dailycontext } from "../Context/Dailycontext";
 
 const Newcollections = () => {
-  const [dailyEssentials, setDailyEssentials] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const { all_products, loading } = useContext(Dailycontext);
 
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const res = await axios.get(`${API_URL}/allproducts`);
-        const allProducts = res.data;
-
-        // Filter products without expiry date or invalid expiry
-        const essentials = allProducts
-          .filter((p) => !p.expiry_date || p.expiry_date === null)
-          .map((p) => ({
-            ...p,
-            new_price: p.old_price - p.old_price * 0.05, // 5% off as promo
-          }));
-
-        setDailyEssentials(essentials);
-      } catch (error) {
-        console.error("Failed to fetch products:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchProducts();
-  }, []);
+  const dailyEssentials = all_products.filter(
+    (p) => !p.expiry_date || p.expiry_date === null
+  );
 
   if (loading) {
     return (

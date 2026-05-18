@@ -1,9 +1,9 @@
 import React, { useContext, useState } from "react";
 import "./CSS/category.css";
-import { Dailycontext } from "../Context/Dailycontext";
+import { Dailycontext } from "../Components/Context/Dailycontext";
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
 const dropdown = "/assets/dropdown_icon.png";
-// import RecipeItem from "../../Components/RecipeItem/RecipeItem";
+import RecipeItem from "../Components/RecipeItem/RecipeItem";
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import rehypeSanitize from "rehype-sanitize";

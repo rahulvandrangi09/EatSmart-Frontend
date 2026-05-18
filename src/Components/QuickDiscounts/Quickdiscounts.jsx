@@ -2,7 +2,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import Item from "../Item/Item";
 import "./quickdiscounts.css";
-import { Dailycontext } from "../../Context/Dailycontext";
+import { Dailycontext } from "../Context/Dailycontext";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
