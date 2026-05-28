@@ -3,7 +3,7 @@ import axios from "axios";
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import rehypeSanitize from "rehype-sanitize";
-import "./CSS/chatBot.css";
+import "./CSS/alfredai.css";
 import CartSpendingAnalysis from "./CartSpendingAnalysis";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
@@ -83,7 +83,7 @@ const Chatbot = () => {
   };
 
   return (
-    <>
+    <div className="chatbot-page" style={{ minHeight: '100vh', backgroundColor: '#f9f9f9', paddingTop: '20px' }}>
       <div className="chatbot">
         <h2>🍴 Recipe Generator</h2>
 
@@ -207,8 +207,10 @@ const Chatbot = () => {
         )}
       </div>
 
-      <CartSpendingAnalysis />
-    </>
+      <div style={{ marginTop: '40px' }}>
+        <CartSpendingAnalysis />
+      </div>
+    </div>
   );
 };
 

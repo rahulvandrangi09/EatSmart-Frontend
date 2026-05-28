@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import axios from "axios";
-import "./CSS/login.css";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
@@ -36,37 +35,34 @@ const Login = ({ switchToSignup }) => {
   };
 
   return (
-    <div className="login">
-      <div className="logincontainer">
-        <h1>Login</h1>
-        <div className="loginfield">
-          <input
-            type="email"
-            placeholder="Email Address"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
-        <button onClick={handleLogin}>Login</button>
-
-        {error && <p style={{ color: "red" }}>{error}</p>}
-
-        <p className="loginalready">
-          Don't have an account?{" "}
-          <span
-            onClick={switchToSignup}
-            style={{ cursor: "pointer", color: "blue" }}
-          >
-            Sign Up
-          </span>
-        </p>
+    <div className="auth-form">
+      <h1>Login</h1>
+      <div className="auth-field">
+        <input
+          type="email"
+          placeholder="Email Address"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
       </div>
+      <div className="auth-field">
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+      </div>
+      <button className="auth-button" onClick={handleLogin}>Login</button>
+
+      {error && <p className="auth-error">{error}</p>}
+
+      <p className="auth-switch">
+        Don't have an account?{" "}
+        <span onClick={switchToSignup}>
+          Sign Up
+        </span>
+      </p>
     </div>
   );
 };

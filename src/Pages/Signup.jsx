@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import "./CSS/login.css";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
@@ -27,31 +26,32 @@ const Signup = ({ switchToLogin }) => {
   };
 
   return (
-    <div className="login">
-      <div className="logincontainer">
-        <h1>Sign Up</h1>
-        <div className="loginfield">
-          <input type="text" name="name" placeholder="Your Name" onChange={handleChange} />
-          <input type="email" name="email" placeholder="Email Address" onChange={handleChange} />
-          <input type="password" name="password" placeholder="Password" onChange={handleChange} />
-        </div>
-        <div className="terms">
-          <input type="checkbox" id="terms" />
-          <label htmlFor="terms">
-            By continuing, I agree to the terms of use and policy
-            <br />
-            Already Have an account{" "}
-            {/* ✅ CORRECTED: Use a clickable span with the `switchToLogin` prop */}
-            <span
-              onClick={switchToLogin}
-              style={{ cursor: "pointer", color: "blue", fontWeight: "600" }}
-            >
-              Click Here
-            </span>
-          </label>
-        </div>
-        <button onClick={handleSubmit}>Continue</button>
+    <div className="auth-form">
+      <h2>Sign Up</h2>
+      <div className="auth-field">
+        <input type="text" name="name" placeholder="Your Name" onChange={handleChange} />
       </div>
+      <div className="auth-field">
+        <input type="email" name="email" placeholder="Email Address" onChange={handleChange} />
+      </div>
+      <div className="auth-field">
+        <input type="password" name="password" placeholder="Password" onChange={handleChange} />
+      </div>
+      <div style={{ textAlign: 'left', marginBottom: '15px', fontSize: '14px' }}>
+        <input type="checkbox" id="terms" />
+        <label htmlFor="terms" style={{ marginLeft: '8px', color: '#666' }}>
+          By continuing, I agree to the terms of use and policy
+          <br />
+          Already Have an account{" "}
+          <span
+            onClick={switchToLogin}
+            style={{ cursor: "pointer", color: "#667eea", fontWeight: "600" }}
+          >
+            Click Here
+          </span>
+        </label>
+      </div>
+      <button className="auth-button" onClick={handleSubmit}>Continue</button>
     </div>
   );
 };
