@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
+import "./CSS/cartspendinganalysis.css";
 import { Dailycontext } from "../Components/Context/Dailycontext";
 import { Pie } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
@@ -70,40 +71,55 @@ const CartSpendingAnalysis = () => {
   const isCartEmpty = itemsList.length === 0;
 
   return (
-    <div className="container" style={{ textAlign: "center" }}>
-      <h1>🛒 Cart Spending Report</h1>
+    <div className="cart-spending-analysis">
+      <div className="spending-container">
+        <div className="spending-header">
+          <h1 className="spending-title">🛒 Cart Spending Report</h1>
+        </div>
 
-      {isCartEmpty ? (
-        <p style={{ marginTop: "40px", fontSize: "18px", color: "#666" }}>
-          Add items to the cart to display spending analysis!
-        </p>
-      ) : (
-        <>
-          <div className="items">
-            <h2>Items in Cart</h2>
-            <ul>
-              {itemsList.map((item, idx) => (
-                <li key={idx}>
-                  {item.name} - ₹{item.price}
-                </li>
-              ))}
-            </ul>
+        {isCartEmpty ? (
+          <div className="empty-analysis">
+            <div className="empty-icon">📦</div>
+            <p className="empty-text">Add items to the cart to display spending analysis!</p>
           </div>
+        ) : (
+          <>
+            <div className="spending-grid">
+              <div className="spending-card">
+                <div className="card-label">Healthy Spending</div>
+                <div className="card-value positive">₹{dataChart.datasets[0].data[0]}</div>
+              </div>
+              <div className="spending-card">
+                <div className="card-label">Unhealthy Spending</div>
+                <div className="card-value negative">₹{dataChart.datasets[0].data[1]}</div>
+              </div>
+            </div>
 
-          <div className="totals" style={{ margin: "20px 0" }}>
-            <p>
-              <strong>Healthy Spending:</strong> ₹{dataChart.datasets[0].data[0]}
-            </p>
-            <p>
-              <strong>Unhealthy Spending:</strong> ₹{dataChart.datasets[0].data[1]}
-            </p>
-          </div>
+            <div className="chart-section">
+              <h3 className="chart-title">Spending Breakdown</h3>
+              <div className="chart-container">
+                <div className="chart-canvas">
+                  <Pie data={dataChart} />
+                </div>
+              </div>
+            </div>
 
-          <div style={{ maxWidth: "400px", margin: "0 auto" }}>
-            <Pie data={dataChart} />
-          </div>
-        </>
-      )}
+            <div className="chart-section">
+              <h3 className="chart-title">Items in Cart</h3>
+              <div style={{ textAlign: 'left' }}>
+                <ul style={{ listStyle: 'none', padding: 0 }}>
+                  {itemsList.map((item, idx) => (
+                    <li key={idx} style={{ padding: '10px', borderBottom: '1px solid #eee', display: 'flex', justifyContent: 'space-between' }}>
+                      <span>{item.name}</span>
+                      <strong>₹{item.price}</strong>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </>
+        )}
+      </div>
     </div>
   );
 };

@@ -1,0 +1,31 @@
+.daily-essentials {
+  width: 100%;
+  background-color: #fff;
+}
+
+.daily-essentials-hero {
+  width: 100%;
+}
+
+.daily-essentials-popular {
+  width: 100%;
+  padding: 40px 0;
+}
+
+.daily-essentials-offer {
+  width: 100%;
+  padding: 40px 0;
+}
+
+.daily-essentials-new-collections {
+  width: 100%;
+  padding: 40px 0;
+}
+
+@media (max-width: 768px) {
+  .daily-essentials-popular,
+  .daily-essentials-offer,
+  .daily-essentials-new-collections {
+    padding: 30px 0;
+  }
+}

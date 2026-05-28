@@ -1,0 +1,39 @@
+.productpage {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #fafafa;
+}
+
+.productpage-breadcrum {
+  width: 100%;
+  padding: 20px 0;
+  background-color: #fff;
+  border-bottom: 1px solid #eee;
+}
+
+.productpage-display {
+  width: 100%;
+  padding: 40px 20px;
+}
+
+.productpage-related {
+  width: 100%;
+  padding: 40px 20px;
+  background-color: #fff;
+}
+
+.productpage-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .productpage-display,
+  .productpage-related {
+    padding: 20px 10px;
+  }
+
+  .productpage-breadcrum {
+    padding: 15px 10px;
+  }
+}

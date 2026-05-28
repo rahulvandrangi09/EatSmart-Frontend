@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import "./CSS/cart.css";
 import Cartitems from "../Components/CartItems/Cartitems";
 
 const Cart = () => {
@@ -14,8 +15,10 @@ const Cart = () => {
   }, [navigate]);
 
   return (
-    <div>
-      <Cartitems />
+    <div className="cart-page">
+      <div className="cart-container">
+        <Cartitems />
+      </div>
     </div>
   );
 };
