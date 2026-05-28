@@ -20,7 +20,9 @@ const Dailycontextprovider = (props) => {
       name: item.name || item.title || "Unnamed Product",
       new_price: item.new_price || item.price || 0,
       old_price: item.old_price || item.price || 0,
-      image: item.image || "/default.png",
+      image: item.image 
+        ? item.image.replace("http://localhost:5000", API_URL) 
+        : "/default.png",
     }));
 
   // 🔹 Fetch backend products and merge with static data
