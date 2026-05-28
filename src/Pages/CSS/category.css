@@ -89,7 +89,6 @@
 .sort-option:last-child {
   border-radius: 0 0 8px 8px;
 }
-}
 
 .recipecategory-index p span {
   font-weight: 600;
@@ -238,6 +237,7 @@
   font-size: 16px;
   padding: 40px;
   grid-column: 1 / -1;
+}
 
 .generated-recipe {
   margin-top: 20px;
